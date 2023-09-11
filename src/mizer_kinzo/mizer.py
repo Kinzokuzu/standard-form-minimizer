@@ -12,10 +12,36 @@ def getTargetFunc(canon_func: str) -> list[str]:
 
     return tgt_func
 
-# TODO: implement this method
-def getStandardFunc(tgt_func: list[str]) -> list[str]:
+def decimalToBinary(decimal_int: int, var_cout: int) -> list[int]:
+    binary_func = []
+
+    for i in range(var_cout):
+        binary_func.append(decimal_int % 2)
+        decimal_int // 2
+
+    return binary_func[::-1]
+
+def getStandardFunc(tgt_func: list[str], num_vars) -> list[str]:
+    binary_func = []
     std_func = []
-    # for every term in tgt_func, create minterm/maxterm
+
+    # give appropriate binary representation of minterms
+    for term in tgt_func:
+        if term[0] == 'm':
+            # take minterm subscript and convert it to a binary list representation
+            binary_func.append(decimalToBinary(int(term[1]), num_vars))
+
+    # using binary representation, create standard representation
+    for binary_num in binary_func:
+        std_term = ""
+        for i in range(num_vars):
+            if binary_num[i] == 0:
+                std_term += var_list[i].upper()
+            else:
+                std_term += var_list[i]
+
+        std_func.append(std_term)
+
     return std_func
 
 # TODO: implement this method
@@ -36,7 +62,7 @@ var_list = list(sys.argv[1])
 tgt_func = getTargetFunc(sys.argv[2])
 
 # create std_func                 * implement method
-std_func = getStandardFunc(tgt_func)
+std_func = getStandardFunc(tgt_func, len(var_list))
 
 # simplify std_func -> simp_func  * implement method
 
