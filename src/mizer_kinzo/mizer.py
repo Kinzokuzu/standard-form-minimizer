@@ -17,7 +17,7 @@ def decimalToBinary(decimal_int: int, var_cout: int) -> list[int]:
 
     for i in range(var_cout):
         binary_func.append(decimal_int % 2)
-        decimal_int // 2
+        decimal_int = decimal_int // 2
 
     return binary_func[::-1]
 
