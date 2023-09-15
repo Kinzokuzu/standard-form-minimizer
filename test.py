@@ -38,6 +38,15 @@ def integerToBinaryString_test1():
     if mizer.integerToBinaryString(test_int, test_bits) != test_binary_num:
         print("Failed: ")
 
+def getStandardRepresentation_test1():
+    test_vars, test_var_count = mizer.getVariables("ABC")
+    test_tgt_func = "01"
+
+    # expected_result = "A'B'C'"
+    standard_representation = mizer.getStandardRepresentation(test_vars, test_tgt_func)
+    print(standard_representation)
+
 # test calls
 getVariables_test1()
 integerToBinaryString_test1()
+getStandardRepresentation_test1()
