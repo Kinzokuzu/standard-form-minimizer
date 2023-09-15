@@ -1,37 +1,37 @@
 import sys
 
-usage_error_message = """ERROR: improper usage
-Usage: mizer "[function]"
-
-Function form: f([variables]) = sum([list of integer values])
-               f([variables]) = product([list of integer values])
-
-The function can be represented by either a lower case 'f' or an upper case 'F'
-The variables can be passed as a list of variables (A, B, C, ..., Z) or a range (A-Z)
-"""
-
-# parses through function string and return a list of variables, variable count, function type (boolean), and term targets (integers)
-
-def parseInputFunction(function: str):
-    if function[0] != 'f' or function[0] != 'F':
-        print(usage_error_message); return False
-
+def getVariables(var_str: str):
     var_list = []
-    var_count = 0
-    func_type = False
-    term_targets = []
+    for var in var_str:
+        var_list.append(var)
 
-    # parse through rest of function
-    in_parentheses = False
-    parentheses_count = 0
-    for i in range(1, len(function)):
-        if function[i] == ' ':
-            i += 1
+    var_count = len(var_list)
 
-        if function[i] == '(' and in_parentheses == False:
-            # TODO: Return erro if trying to open paren. and in_paren. is True
-            in_parentheses = True
-        elif function[i] == ')' and in_parentheses == True:
-            # TODO: Return error if trying to close parentheses and in_paren. is False
-            in_parentheses = False
-            parentheses_count += 1
+    return var_list, var_count
+
+# TODO: implement maxterms
+def getTermSubscripts(tgt_func: str):
+    term_subs = []
+    for term in tgt_func:
+        term_subs.append(int(term))
+
+    return term_subs
+
+def integerToBinaryString(num: int, bit_count: int):
+    binary_str = ""
+    while num > 0:
+        binary_str += str(num % 2)
+        num = num // 2
+    
+    append_count = bit_count - len(binary_str)
+    binary_str += '0' * append_count
+
+    return binary_str[::-1]
+
+# TODO: finish implementation
+def getStandardRepresentation(var_list: list[str], tgt_func: str):
+    var_count = len(var_list)
+    term_subscripts = getTermSubscripts(tgt_func)
+    std_rep = []
+
+    # for every term subscript get minterm/maxterm

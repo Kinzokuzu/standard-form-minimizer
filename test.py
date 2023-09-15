@@ -10,13 +10,34 @@ def disablePrint():
 def enablePrint():
     sys.stdout = sys.__stdout__
 
-def parseInputFunction_test1():
-    test_str = "F,=,A,1,m,M,-,()" 
+def getVariables_test1():
+    test_var_str = "ABCD"
+    test_var_list = ["A","B","C","D"]
+    test_var_count = 4
 
-    disablePrint()
-    test_result = mizer.parseInputFunction(test_str)
-    enablePrint()
+    var_list, var_count = mizer.getVariables(test_var_str)
 
-    print("parseInputFucntion_test1:", test_result)
+    print("getVariables_test1")
+    result = True
+    if var_list != test_var_list:
+        print("FAILED: var_list != test_var_list")
+        result = False
 
-parseInputFunction_test1()
+    if var_count != test_var_count:
+        print("FAILED: var_count != test_var_count")
+        result = False
+
+    if result == True:
+        print("PASSED")
+
+def integerToBinaryString_test1():
+    test_int = 7
+    test_bits = 4
+    test_binary_num = "0111"
+
+    if mizer.integerToBinaryString(test_int, test_bits) != test_binary_num:
+        print("Failed: ")
+
+# test calls
+getVariables_test1()
+integerToBinaryString_test1()
