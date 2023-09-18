@@ -39,12 +39,12 @@ def integerToBinaryString_test1():
         print("Failed: ")
 
 def getStandardRepresentation_test1():
-    test_vars, test_var_count = mizer.getVariables("ABC")
-    test_tgt_func = "01"
+    test_vars, test_var_count = mizer.getVariables("ABCD")
+    test_tgt_func = "0124689"
 
     # expected_result = "A'B'C'"
     standard_representation = mizer.getStandardRepresentation(test_vars, test_tgt_func)
-    print(standard_representation)
+    mizer.printFunction(standard_representation)
 
 # test calls
 getVariables_test1()

@@ -1,5 +1,8 @@
 import sys
 
+# TODO: ASAP
+# - current implementation can't take terms > 9 (2+ digits)
+
 def getVariables(var_str: str):
     var_list = []
     for var in var_str:
@@ -49,3 +52,11 @@ def getStandardRepresentation(var_list: list[str], tgt_func: str):
         std_rep.append(curr_product)
 
     return std_rep
+
+# TODO: implement maxterms
+def printFunction(func: list[str]):
+    # TODO: fix '+' being printed after the last term
+    for term in func:
+        print(term, "+", end=" ")
+
+    print("")
