@@ -1,8 +1,5 @@
 import sys
 
-# TODO: ASAP
-# - current implementation can't take terms > 9 (2+ digits)
-
 def getVariables(var_str: str):
     var_list = []
     for var in var_str:
@@ -12,11 +9,18 @@ def getVariables(var_str: str):
 
     return var_list, var_count
 
-# TODO: implement maxterms
+# TODO: - implement maxterms
+#       - fix so that last subscript appends to term_subs without a ',' being needed
 def getTermSubscripts(tgt_func: str):
     term_subs = []
-    for term in tgt_func:
-        term_subs.append(int(term))
+   
+    curr_term = ""
+    for i in range(len(tgt_func)):
+        if tgt_func[i] == ',':
+            term_subs.append(int(curr_term))
+            curr_term = ""
+        else:
+            curr_term += tgt_func[i]
 
     return term_subs
 
