@@ -40,13 +40,19 @@ def integerToBinaryString_test1():
 
 def getStandardRepresentation_test1():
     test_vars, test_var_count = mizer.getVariables("ABCD")
-    test_tgt_func = "0124689"
+    test_tgt_func = "0,1,2,4,6,8,9,"
 
     # expected_result = "A'B'C'"
     standard_representation = mizer.getStandardRepresentation(test_vars, test_tgt_func)
     mizer.printFunction(standard_representation)
 
+def getTermSubscripts_test1():
+    test_tgt_func = "0,1,2,11,123,"
+    
+    print(mizer.getTermSubscripts(test_tgt_func))
+
 # test calls
+getTermSubscripts_test1()
 getVariables_test1()
 integerToBinaryString_test1()
 getStandardRepresentation_test1()
