@@ -30,16 +30,17 @@ def getMinterm(var_list: list[str], binary_subscript: str) -> str:
     r_binary_num= binary_subscript[::-1]
     end_of_binary_num = False
     for i in range(len(var_list)):
-        if r_binary_num[i] == 'b': end_of_binary_num = True
+        if not end_of_binary_num and r_binary_num[i] == 'b':
+            end_of_binary_num = True
 
-        if not end_of_binary_num and r_binary_num[i] == '0':
-            minterm += var_list[i] + '\''
-        else:
+        if not end_of_binary_num and r_binary_num[i] == '1':
             minterm += var_list[i]
+        else:
+            minterm += var_list[i] + '\''
 
     return minterm
 
-def getStandardRepresentation(var_list, subscript_list) -> str:
+def getStandardRepresentation(var_list: list[str], subscript_list: list[int]) -> str:
     variable_count = len(var_list)
     function = "F("
 
@@ -56,5 +57,11 @@ def getStandardRepresentation(var_list, subscript_list) -> str:
     function += " = "
 
     # append terms
+    binary_list = getBinaryList(subscript_list)
+    for i in range(len(subscript_list)):
+        function += getMinterm(var_list, binary_list[i])
+
+        if i != len(subscript_list)-1:
+            function += ' + '
 
     return function
