@@ -1,66 +1,60 @@
 import sys
 
-def getVariables(var_str: str):
-    var_list = []
-    for var in var_str:
-        var_list.append(var)
+def getVariables(function: str) -> list[str]:
+    v_list = []
+    # TODO: implement checks for variables
+    for v in function:
+        v_list.append(v)
 
-    var_count = len(var_list)
+    return v_list
 
-    return var_list, var_count
-
-# TODO: - implement maxterms
-#       - fix so that last subscript appends to term_subs without a ',' being needed
-def getTermSubscripts(tgt_func: str):
+def getTermSubscripts(function: str) -> list[int]:
     term_subs = []
-   
-    curr_term = ""
-    for i in range(len(tgt_func)):
-        if tgt_func[i] == ',':
-            term_subs.append(int(curr_term))
-            curr_term = ""
-        else:
-            curr_term += tgt_func[i]
+    # TODO: implement checks for terms & subscripts
+    for t in function:
+        term_subs.append(int(t))
 
     return term_subs
 
-def integerToBinaryString(num: int, bit_count: int):
-    binary_str = ""
-    while num > 0:
-        binary_str += str(num % 2)
-        num = num // 2
-    
-    append_count = bit_count - len(binary_str)
-    binary_str += '0' * append_count
+def getBinaryList(num_list: list[int]) -> list[str]:
+    binary_list = []
 
-    return binary_str[::-1]
+    for n in num_list:
+        binary_list.append(bin(n))
 
-# TODO: implement maxterms
-def getStandardRepresentation(var_list: list[str], tgt_func: str):
-    var_count = len(var_list)
-    term_subscripts = getTermSubscripts(tgt_func)
-    std_rep = []
+    return binary_list
 
-    # for every term subscript get minterms
-    for term in term_subscripts:
-        curr_product = ""
-        binary_representation = integerToBinaryString(term, var_count)
+def getMinterm(var_list: list[str], binary_subscript: str) -> str:
+    minterm = ""
 
-        for i in range(var_count):
-            # get compliments for all terms that evaluate to 0
-            if binary_representation[i] == '0':
-                curr_product += var_list[i] + '\''
-            else:
-                curr_product += var_list[i]
-        # append current product of inputs to standard rep. function
-        std_rep.append(curr_product)
+    r_binary_num= binary_subscript[::-1]
+    end_of_binary_num = False
+    for i in range(len(var_list)):
+        if r_binary_num[i] == 'b': end_of_binary_num = True
 
-    return std_rep
+        if not end_of_binary_num and r_binary_num[i] == '0':
+            minterm += var_list[i] + '\''
+        else:
+            minterm += var_list[i]
 
-# TODO: implement maxterms
-def printFunction(func: list[str]):
-    # TODO: fix '+' being printed after the last term
-    for term in func:
-        print(term, "+", end=" ")
+    return minterm
 
-    print("")
+def getStandardRepresentation(var_list, subscript_list) -> str:
+    variable_count = len(var_list)
+    function = "F("
+
+    # append variables
+    for i in range(variable_count):
+        function += var_list[i]
+        # close parentheses
+        if i == variable_count-1:
+            function += ')'
+        else:
+            function += ','
+
+    # append '='
+    function += " = "
+
+    # append terms
+
+    return function
