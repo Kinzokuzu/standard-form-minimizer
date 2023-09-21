@@ -1,3 +1,5 @@
+# Author: Kinzo
+
 # gets variables from a passed function in the form F([variables]) = sum([terms])
 def getVariables(function: str) -> list[str]:
     v_list = []
@@ -74,3 +76,38 @@ def getStandardRepresentation(var_list: list[str], subscript_list: list[int]) ->
             function += ' + '
 
     return function
+
+# returns the number of 1's in a binary number
+def getOnes(num: str) -> int:
+    count = 0
+    for i in num:
+        if i == '1':
+            count += 1
+
+    return count
+
+# returns whether two boolean numbers can be groups (differ by 1 bit)
+def compare(x: str, y: str) -> bool:
+    differences = 0
+    for i in range(len(x)):
+        # handle cases where '-' is not in the same place
+        if x[i] == '-' and y[i] != '-':
+            return False
+        if x[i] != '-' and y[i] == '-':
+            return False
+
+        if x[i] != y[i]:
+            differences += 1
+
+    return differences == 1
+
+# groups binary numbers together
+def reduce(x: str, y: str) -> str:
+    result = ""
+    for i in range(len(x)):
+        if x[i] == y[i]:
+            result += x[i]
+        else:
+            result += '-'
+
+    return result
