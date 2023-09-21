@@ -111,3 +111,64 @@ def reduce(x: str, y: str) -> str:
             result += '-'
 
     return result
+
+# returns an inital group table given a list of variables (bit cout) and minterm subscripts
+def getInitialGroupTable(var_list: list[str], subscript_list: list[int]) -> dict:
+    groups = {}
+    minterms = getBinaryList(subscript_list, len(var_list))
+
+    for term in minterms:
+        ones_count = getOnes(term)
+        
+        # place term in appropriate group
+        if ones_count in groups.keys():
+            groups[ones_count].append(term)
+        else:
+            groups[ones_count] = [term]
+
+    return groups
+
+# attempts to reduces a table once, returns the reduced group and the number of terms reduced
+def reduceGroupTable(initial_group_table: dict):
+    new_group_table = {}
+
+    # create a list of all minterms
+    minterms = []
+    for group in initial_group_table.values():
+        for term in group:
+            minterms.append(term)
+
+    changes = 0 # keeps track of number of terms reduced
+    for i in range(len(minterms)-1):
+        curr_term = minterms[i]
+
+        for j in range(i, len(minterms)): # we only need to check "higher" minterms
+            next_term = minterms[j]
+
+            # check if curr_term and next_term differ by 1 bit
+            if compare(curr_term, next_term):
+                changes += 1
+                new_term = reduce(curr_term, next_term) # place proper '-'s
+                new_term_ones = getOnes(new_term) 
+
+                # place in proper grouping
+                if new_term_ones in new_group_table.keys():
+                    new_group_table[new_term_ones].append(new_term)
+                else:
+                    new_group_table[new_term_ones] = [new_term]
+    
+    # TODO: Ensure that there are no repeated terms
+    if changes == 0:
+        new_group_table = initial_group_table
+
+    return new_group_table, changes
+
+
+def getGroupTable(var_list: list[str], subscript_list: list[int]) -> dict:
+    group_table = getInitialGroupTable(var_list, subscript_list)
+    changes = -1
+
+    while changes != 0:
+        group_table, changes = reduceGroupTable(group_table)
+
+    return group_table
