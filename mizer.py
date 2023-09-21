@@ -157,7 +157,6 @@ def reduceGroupTable(initial_group_table: dict):
                 else:
                     new_group_table[new_term_ones] = [new_term]
     
-    # TODO: Ensure that there are no repeated terms
     if changes == 0:
         new_group_table = initial_group_table
 
@@ -171,4 +170,5 @@ def getGroupTable(var_list: list[str], subscript_list: list[int]) -> dict:
     while changes != 0:
         group_table, changes = reduceGroupTable(group_table)
 
+    # TODO: Ensure that there are no repeated terms
     return group_table
