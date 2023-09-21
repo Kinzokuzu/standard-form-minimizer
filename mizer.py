@@ -36,17 +36,12 @@ def getBinaryList(num_list: list[int], bits: int) -> list[str]:
 def getMinterm(var_list: list[str], binary_subscript: str) -> str:
     minterm = ""
 
-    r_binary_num = binary_subscript[::-1]
-    end_of_binary_num = False
     for i in range(len(var_list)):
-        # ingore all characters after the 'b' in binary number string
-        if not end_of_binary_num and r_binary_num[i] == 'b':
-            end_of_binary_num = True
-        # apppend appropriate true or complimented term
-        if not end_of_binary_num and r_binary_num[i] == '1':
-            minterm += var_list[i]
-        else:
+        # skip all '-'s        
+        if binary_subscript[i] == '0':
             minterm += var_list[i] + '\''
+        elif binary_subscript[i] == '1':
+            minterm += var_list[i]
 
     return minterm
 
@@ -170,5 +165,41 @@ def getGroupTable(var_list: list[str], subscript_list: list[int]) -> dict:
     while changes != 0:
         group_table, changes = reduceGroupTable(group_table)
 
-    # TODO: Ensure that there are no repeated terms
+    # ensure that there are no repeated terms
+    for i in group_table.keys():
+        group_table[i] = set(group_table[i])
+
     return group_table
+
+def getSimplifiedRepresentation(var_list: list[str], subscript_list: list[int]) -> str:
+    variable_count = len(var_list)
+    function = "F("
+
+    # append variables
+    for i in range(variable_count):
+        function += var_list[i]
+        # close parentheses
+        if i == variable_count-1:
+            function += ')'
+        else:
+            function += ','
+
+    # append '='
+    function += " = "
+
+    # set up for appending terms
+    group = getGroupTable(var_list, subscript_list)
+
+    minterms = []
+    for group in group.values():
+        for term in group:
+            minterms.append(term)
+
+    # append terms
+    for i in range(len(minterms)):
+        function += getMinterm(var_list, minterms[i])
+
+        if i != len(minterms)-1:
+            function += ' + '
+
+    return function
