@@ -2,9 +2,14 @@
 usage: vcb -[options] [boolean funciton]
 
 #### Features List
-* Generate circuits in verilog by passing a boolean function in either canonical or standard forms
-* Automatically generate test benches for circuits
-* Automatically Simplify boolean functions
+* Handles boolean functions in either canonical or standard form
+* Generates circuits in verilog given a boolean function which describes circuit behavior
+* Automatically generates test benches for circuits
+* Automatically simplifies boolean functions
+* Generates a truth table for boolean functions
+
+## Parsing Functions
+Vcb implements the shunting yard algorithm to parse the functions and represent them in Reverse Polish Notation
 
 ## Circuit Generation
 
@@ -12,3 +17,5 @@ usage: vcb -[options] [boolean funciton]
 
 ## Boolean Simplification
 Vcb aims to simiplify boolean functions using the Quine-McClusky algorithm.
+
+## Truth Tables
