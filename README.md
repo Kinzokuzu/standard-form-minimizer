@@ -1,5 +1,14 @@
-# Standard Form Minimizer (Mizer)
-Given a list of variables representing binary inputs, and a target canonical form function, Mizer returns the standard form representation.
+# Verilog Cicuit Builder
+usage: vcb -[options] [boolean funciton]
 
-### Example
-Given the binary variables $A$, $B$, and $C$, and the target canonical function $F = m_0 + m_2 + m_5$, Mizer returns $F = \bar{A}\bar{B}\bar{C} + \bar{A}B\bar{C} + A\bar{B}C$ and the simplified function $F = \bar{A}\bar{C} + A\bar{B}C$
+#### Features List
+* Generate circuits in verilog by passing a boolean function in either canonical or standard forms
+* Automatically generate test benches for circuits
+* Automatically Simplify boolean functions
+
+## Circuit Generation
+
+## Test Benches
+
+## Boolean Simplification
+Vcb aims to simiplify boolean functions using the Quine-McClusky algorithm.
