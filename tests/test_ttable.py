@@ -1,7 +1,7 @@
 import unittest
-from lib import shuntingyard as sy
+from lib import ttable as tt
 
-class TestShuntingYardFunctions(unittest.TestCase):
+class TestTTableFunctions(unittest.TestCase):
     def test_random_func(self):
         pass
 

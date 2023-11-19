@@ -1,7 +1,7 @@
 import unittest
-from lib import shuntingyard as sy
+from lib import boolfunc as bf
 
-class TestShuntingYardFunctions(unittest.TestCase):
+class TestBoolfuncFunctions(unittest.TestCase):
     def test_random_func(self):
         pass
 
