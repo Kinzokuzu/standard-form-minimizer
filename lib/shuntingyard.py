@@ -4,7 +4,7 @@ def negate_variable(var: str, neg: bool):
     else: return var
 # end helper functions for shunting_yard
 
-
+# TODO: fix operator behavior.  Look at test_shunting_yard_hard
 def shunting_yard(rhs: str):
     rpn = []        # reverse polish notation      
     op_stack = []   # operator stack
@@ -19,13 +19,21 @@ def shunting_yard(rhs: str):
         elif rhs[i] == '!': # negation with '!'
             negate_var = True
         else:
+            # current token is a variable
             if rhs[i].isalpha():
                 # look for negation with apostrophe
-                if rhs[i+1] == '\'':
+                if i+1 < len(rhs) and rhs[i+1] == '\'':
                     negate_var = True
-                
+                # look for 'and' operations between two variables
+                elif i+1 < len(rhs) and rhs[i+1].isalpha():
+                    op_stack.append("and")
+
+                # negate_variable handles proper true or negated variables
                 rpn.append(negate_variable(rhs[i], negate_var))
 
+    # empty operator stack into rpn
+    while op_stack:
+        rpn.append(op_stack.pop())
 
     return rpn
 
