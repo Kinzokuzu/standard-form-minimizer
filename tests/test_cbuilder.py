@@ -16,9 +16,7 @@ class TestCBuilderFunctions(unittest.TestCase):
     def test_write_inputs(self):
         test_inputs = ['A','B']
 
-        expected_string = """// inputs\n
-                             input A;\n
-                             input B;\n"""
+        expected_string = """// inputs\ninput A;\ninput B;\n"""
 
         result_string = cb.write_inputs(test_inputs)
 
@@ -27,8 +25,7 @@ class TestCBuilderFunctions(unittest.TestCase):
     def test_write_outputs(self):
         test_outputs = ['F']
 
-        expected_string = """// outputs\n
-                             output F;\n"""
+        expected_string = """// outputs\noutput F;\n"""
 
         result_string = cb.write_outputs(test_outputs)
 

@@ -3,7 +3,7 @@ from lib import boolfunc as bf
 
 # implementation discription
 def write_description(func: str):
-    return("// implementatoin of" + func + "\n")
+    return("// implementation of " + func + "\n")
 
 
 # inputs
@@ -11,17 +11,17 @@ def write_inputs(ins: list):
     string = "// inputs\n"
 
     for var in ins:
-        string += "input" + var + ";\n"
+        string += "input " + var + ";\n"
 
     return string
 
 
 # outputs
 def write_outputs(outs: list):
-    string = "// ouputs\n"
+    string = "// outputs\n"
 
     for var in outs:
-        string += "output" + var + "\n"
+        string += "output " + var + ";\n"
 
     return string
 
