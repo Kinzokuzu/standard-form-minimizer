@@ -14,9 +14,9 @@ class TestShuntingYardFunctions(unittest.TestCase):
 
 
     def test_shunting_yard_easy(self):
-        test_string = "AB'"
+        test_string = "F = AB'"
         
-        expected_rpn = ["A","!B","and"]
+        expected_rpn = ["F","A","!B","and"]
 
         rpn = sy.shunting_yard(test_string)
 
@@ -24,9 +24,9 @@ class TestShuntingYardFunctions(unittest.TestCase):
 
 
     def test_shunting_yard_hard(self):
-        test_string = "AB' + A'B"
+        test_string = "F = AB' + A'B"
         
-        expected_rpn = ["A","!B","!A","B","and","and","or"]
+        expected_rpn = ["F","A","!B","!A","B","and","and","or"]
 
         rpn = sy.shunting_yard(test_string)
 
