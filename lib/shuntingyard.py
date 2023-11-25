@@ -5,7 +5,7 @@ def negate_variable(var: str, neg: bool):
 # end helper functions for shunting_yard
 
 def shunting_yard(user_func: str):
-    rpn = [""] # reverse polish notation
+    rpn = [] # reverse polish notation
     # rpn[0] holds everything left of '='
 
     found_equal_sign = False
@@ -14,7 +14,12 @@ def shunting_yard(user_func: str):
         # all content on the left side of '=' should be in rpn[0]
         if user_func[i] == '=': found_equal_sign = True
         if not found_equal_sign:
-            rpn[0] += user_func[i]
+            if user_func[i] == ' ': pass # ignore whitespace
+            elif rpn: 
+                rpn[0] += user_func[i]
+            else: # create first element if it does't yet exist
+                rpn.append(user_func[i])
+
         else: # shunting yard algorithm
             if user_func[i] == ' ': pass # ignore whitespace
             elif user_func[i] == '+':
@@ -25,7 +30,18 @@ def shunting_yard(user_func: str):
 
             elif user_func[i].isalpha() and i < len(user_func)-1:
                 # negation and the 'and' operator are handled here
-                pass #TODO: pick up here
+                if user_func[i+1] == '\'':
+                    # if user[i+1] == '\'' evaluates to true, negate_variable()
+                    # returns "!user_func[i]"
+                    rpn.append( negate_variable(user_func[i], True) )
+                    # if '\'' is not the last character, skip '\'' character
+                    if i+1 < len(user_func)-1: i += 1
+                else:
+                    rpn.append(user_func[i])
+
+                if user_func[i+1].isalpha():
+                    op_stack.append("and")
+
             else: # appending last variable
                 if user_func[i].isalpha(): rpn.append(user_func[i])
 
