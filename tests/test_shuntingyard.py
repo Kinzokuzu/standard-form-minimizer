@@ -2,17 +2,6 @@ import unittest
 from lib import shuntingyard as sy
 
 class TestShuntingYardFunctions(unittest.TestCase):
-    def test_helper_negate_variable(self):
-        expected_true = "A"
-        expected_negation = "!A"
-
-        true_var = sy.negate_variable('A', False)
-        negated_var = sy.negate_variable('A', True)
-
-        self.assertEqual(true_var, expected_true)
-        self.assertEqual(negated_var, expected_negation)
-
-
     def test_shunting_yard_easy(self):
         test_string = "F = AB'"
         

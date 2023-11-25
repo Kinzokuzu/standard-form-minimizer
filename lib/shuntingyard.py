@@ -1,9 +1,3 @@
-# helper functions for shunting_yard
-def negate_variable(var: str, neg: bool):
-    if neg: return "!" + var
-    else: return var
-# end helper functions for shunting_yard
-
 def shunting_yard(user_func: str):
     rpn = [] # reverse polish notation
     # rpn[0] holds everything left of '='
@@ -31,9 +25,8 @@ def shunting_yard(user_func: str):
             elif user_func[i].isalpha() and i < len(user_func)-1:
                 # negation and the 'and' operator are handled here
                 if user_func[i+1] == '\'':
-                    # if user[i+1] == '\'' evaluates to true, negate_variable()
-                    # returns "!user_func[i]"
-                    rpn.append( negate_variable(user_func[i], True) )
+                    # if user[i+1] == '\'' evaluates to true, negate variable
+                    rpn.append('!' + user_func[i])
                     # if '\'' is not the last character, skip '\'' character
                     if i+1 < len(user_func)-1: i += 1
                 else:
