@@ -4,34 +4,32 @@ def negate_variable(var: str, neg: bool):
     else: return var
 # end helper functions for shunting_yard
 
-# TODO: fix operator behavior.  Look at test_shunting_yard_hard
-def shunting_yard(rhs: str):
-    rpn = []        # reverse polish notation      
-    op_stack = []   # operator stack
+def shunting_yard(user_func: str):
+    rpn = [""] # reverse polish notation
+    # rpn[0] holds everything left of '='
 
-    negate_var = False
+    found_equal_sign = False
+    op_stack = []
+    for i in range(len(user_func)):
+        # all content on the left side of '=' should be in rpn[0]
+        if user_func[i] == '=': found_equal_sign = True
+        if not found_equal_sign:
+            rpn[0] += user_func[i]
+        else: # shunting yard algorithm
+            if user_func[i] == ' ': pass # ignore whitespace
+            elif user_func[i] == '+':
+                # 'and' operator has precedence over 'or' so we move 'or'
+                # forward in our operator stack before the first instance
+                # of 'and'
+                op_stack.insert(op_stack.index("and"), "or")
 
-    for i in range(len(rhs)):
-        if rhs[i] == ' ': # ignore whitespace
-            pass
-        elif rhs[i] == '+': # 'or' operator
-            op_stack.append('or')
-        elif rhs[i] == '!': # negation with '!'
-            negate_var = True
-        else:
-            # current token is a variable
-            if rhs[i].isalpha():
-                # look for negation with apostrophe
-                if i+1 < len(rhs) and rhs[i+1] == '\'':
-                    negate_var = True
-                # look for 'and' operations between two variables
-                elif i+1 < len(rhs) and rhs[i+1].isalpha():
-                    op_stack.append("and")
+            elif user_func[i].isalpha() and i < len(user_func)-1:
+                # negation and the 'and' operator are handled here
+                pass #TODO: pick up here
+            else: # appending last variable
+                if user_func[i].isalpha(): rpn.append(user_func[i])
 
-                # negate_variable handles proper true or negated variables
-                rpn.append(negate_variable(rhs[i], negate_var))
-
-    # empty operator stack into rpn
+    # pop all operators into our reverse polish notation
     while op_stack:
         rpn.append(op_stack.pop())
 
