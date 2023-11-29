@@ -1,5 +1,5 @@
 # circuit and test bench builder
-from lib import boolfunc as bf
+import boolfunc as bf
 
 # implementation discription
 def write_description(func: str):
